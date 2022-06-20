@@ -1,3 +1,5 @@
+import 'package:flash_chat_flutter/screens/create_chat.dart';
+import 'package:flash_chat_flutter/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_flutter/screens/welcome_screen.dart';
 import 'package:flash_chat_flutter/screens/login_screen.dart';
@@ -18,8 +20,10 @@ class FlashChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      color: Colors.white,
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.white,
+        bottomAppBarColor: Colors.white,
         textTheme: TextTheme(
           bodyText1: TextStyle(color: Colors.black54),
         ),
@@ -30,6 +34,8 @@ class FlashChat extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         ChatScreen.id: (context) => ChatScreen(),
+        MainScreen.id: (context) => MainScreen(),
+        CreateChat.id: (context) => CreateChat(),
       },
     );
   }

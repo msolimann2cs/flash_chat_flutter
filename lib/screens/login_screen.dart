@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat_flutter/components/rounded_button.dart';
+import 'package:flash_chat_flutter/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_flutter/constants.dart';
 import 'package:flash_chat_flutter/screens/chat_screen.dart';
@@ -83,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     final user = await _auth.signInWithEmailAndPassword(
                         email: email!, password: password!);
                     if (user != null) {
-                      Navigator.pushNamed(context, ChatScreen.id);
+                      Navigator.pushNamed(context, MainScreen.id);
                     }
                     setState(() {
                       showSpinner = false;

@@ -1,14 +1,21 @@
+import 'package:flash_chat_flutter/services/firebase_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_flutter/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+FirebaseManager firebaseManager = FirebaseManager();
+
 final _firestore = FirebaseFirestore.instance;
 final scrollController = ScrollController();
-User? loggedInUser;
+//User? loggedInUser;
+var loggedInUser;
+var chatID_main;
 
 class ChatScreen extends StatefulWidget {
+  ChatScreen({this.chatID});
   static String id = 'chat_screen';
+  final chatID;
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -19,15 +26,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   String? messageText;
   void getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser;
-      if (user != null) {
-        loggedInUser = user;
-        print(loggedInUser!.email);
-      }
-    } catch (e) {
-      print(e);
-    }
+    loggedInUser = await firebaseManager.getCurrentUser();
   }
 
   void messageStream() async {
@@ -41,6 +40,8 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
+    chatID_main = widget.chatID;
+    print(widget.chatID);
     getCurrentUser();
   }
 
@@ -94,7 +95,11 @@ class _ChatScreenState extends State<ChatScreen> {
                             scrollController.position.minScrollExtent;
                         scrollController.jumpTo(position);
                       }
-                      _firestore.collection('messages').add({
+                      _firestore
+                          .collection('Chats')
+                          .doc(chatID_main)
+                          .collection('messages')
+                          .add({
                         'text': messageText,
                         'sender': loggedInUser!.email,
                         'timestamp': FieldValue.serverTimestamp(),
@@ -121,8 +126,12 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream:
-          _firestore.collection('messages').orderBy('timestamp').snapshots(),
+      stream: _firestore
+          .collection('Chats')
+          .doc(chatID_main)
+          .collection('messages')
+          .orderBy('timestamp')
+          .snapshots(), //.orderBy('timestamp').snapshots(), //.where('id',whereIn: ['1'])
       builder: (context, snapshot) {
         List<MessageBubble> messageBubbles = [];
         if (!snapshot.hasData) {
