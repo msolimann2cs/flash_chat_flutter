@@ -5,7 +5,7 @@ import 'package:flash_chat_flutter/screens/registration_screen.dart';
 import 'package:flash_chat_flutter/screens/chat_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-void main() async {
+Future<void> main() async {
   // Ensure that Firebase is initialized
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize Firebase
