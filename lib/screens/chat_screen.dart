@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flash_chat_flutter/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 FirebaseManager firebaseManager = FirebaseManager();
 
@@ -47,42 +48,152 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: null,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {
-                //Implement logout functionality
-                _auth.signOut();
-                Navigator.pop(context);
-                //messageStream();
-              }),
-        ],
-        title: Text('⚡️Chat'),
-        backgroundColor: Colors.lightBlueAccent,
-      ),
+      backgroundColor: Color(0xFFF7F7F7),
+      // appBar: AppBar(
+      //   leading: null,
+      //   actions: <Widget>[
+      //     IconButton(
+      //         icon: Icon(Icons.close),
+      //         onPressed: () {
+      //           //Implement logout functionality
+      //           _auth.signOut();
+      //           Navigator.pop(context);
+      //           //messageStream();
+      //         }),
+      //   ],
+      //   title: Text('Chat'),
+      //   backgroundColor: Colors.lightBlueAccent,
+      // ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Row(
+              //crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(35),
+                          bottomLeft: Radius.circular(35)),
+                    ),
+                    height: 95,
+                    child: Row(
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      //crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: GestureDetector(
+                            onTap: () {
+                              //_auth.signOut();
+                              Navigator.pop(context);
+                            },
+                            //messageStream();,
+                            child: Icon(
+                              FontAwesomeIcons.arrowLeft,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 13),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            backgroundImage:
+                                AssetImage('images/EmptyProfile.png'),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 34, 0, 0),
+                              child: Text(
+                                loggedInUser!.email,
+                                style: TextStyle(color: Colors.black87),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              child: Text(
+                                'Online',
+                                style: TextStyle(color: Colors.green),
+                              ),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(110, 0, 0, 0),
+                          child: Icon(
+                            FontAwesomeIcons.video,
+                            color: Color(0xFFD4D4D4),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: Icon(
+                            FontAwesomeIcons.phone,
+                            color: Color(0xFFD4D4D4),
+                          ),
+                        )
+                      ],
+                    ),
+                    //width: double.infinity,
+                  ),
+                ),
+              ],
+            ),
             MessagesStream(),
             Container(
-              decoration: kMessageContainerDecoration,
+              height: 100,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Color(0xFFD4D4D4),
+                  ),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(0),
+                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30))),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                    child: TextField(
-                      controller: messageTextController,
-                      onChanged: (value) {
-                        //Do something with the user input.
-                        messageText = value;
-                      },
-                      decoration: kMessageTextFieldDecoration,
-                      style: TextStyle(
-                        color: Colors.black,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: TextField(
+                        controller: messageTextController,
+                        onChanged: (value) {
+                          //Do something with the user input.
+                          messageText = value;
+                        },
+                        decoration: kTextFieldDecoration.copyWith(
+                            filled: true,
+                            fillColor: Color(0xFFF6F6F6),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 1.0),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(32.0)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2.0),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(32.0)),
+                            ),
+                            hintStyle: TextStyle(
+                              color: Color(0xFFB8B8B8),
+                            ),
+                            hintText: 'Type here...'),
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),

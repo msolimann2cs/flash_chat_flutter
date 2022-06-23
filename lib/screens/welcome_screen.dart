@@ -43,7 +43,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 Hero(
                   tag: 'logo',
                   child: Container(
-                    child: Image.asset('images/logo.png'),
+                    child: Image.asset('images/HaruChatLogo.png'),
                     height: animationController!.value * 100,
                   ),
                 ),
@@ -51,7 +51,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   //'${(animationController!.value == 1.0 ? 'Flash Chat' : (animationController!.value * 100).toInt())}'
                   animatedTexts: [
                     TypewriterAnimatedText(
-                      'Flash Chat',
+                      'HaruChat',
                       textStyle: TextStyle(
                         color: Color(0xFF6A686A),
                         fontSize: 45.0,
