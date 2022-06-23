@@ -1,5 +1,6 @@
 import 'package:flash_chat_flutter/screens/create_chat.dart';
 import 'package:flash_chat_flutter/screens/main_screen.dart';
+import 'package:flash_chat_flutter/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_flutter/screens/welcome_screen.dart';
 import 'package:flash_chat_flutter/screens/login_screen.dart';
@@ -22,11 +23,11 @@ class FlashChat extends StatelessWidget {
     return MaterialApp(
       color: Colors.white,
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Color(0xFFF7F7F7),
         bottomAppBarColor: Colors.white,
         appBarTheme: AppBarTheme(foregroundColor: Colors.black),
         textTheme: TextTheme(
-          bodyText1: TextStyle(color: Colors.black54),
+          bodyText2: TextStyle(color: Colors.black),
         ),
       ),
       initialRoute: WelcomeScreen.id,
@@ -37,6 +38,7 @@ class FlashChat extends StatelessWidget {
         ChatScreen.id: (context) => ChatScreen(),
         MainScreen.id: (context) => MainScreen(),
         CreateChat.id: (context) => CreateChat(),
+        ProfilePage.id: (context) => ProfilePage(),
       },
     );
   }

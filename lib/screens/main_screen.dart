@@ -1,6 +1,7 @@
 import 'package:flash_chat_flutter/components/rounded_button.dart';
 import 'package:flash_chat_flutter/screens/chat_screen.dart';
 import 'package:flash_chat_flutter/screens/create_chat.dart';
+import 'package:flash_chat_flutter/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_flutter/services/firebase_manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -102,142 +103,149 @@ class _MainScreenState extends State<MainScreen> {
       //   ),
       // ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Row(
-                children: [
-                  Expanded(
-                    flex: 9,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        height: 50,
-                        child: Row(
-                          //mainAxisAlignment: MainAxisAlignment.center,
-                          //crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15),
-                              child: Icon(
-                                FontAwesomeIcons.magnifyingGlass,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Row(
+              children: [
+                Expanded(
+                  flex: 9,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      height: 50,
+                      child: Row(
+                        //mainAxisAlignment: MainAxisAlignment.center,
+                        //crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Icon(
+                              FontAwesomeIcons.magnifyingGlass,
+                              color: Color(0xFFD4D4D4),
+                            ),
+                          ),
+                          Flexible(
+                            child: TextField(
+                              //textAlign: TextAlign.center,
+                              onChanged: (value) {
+                                //Do something with the user input.
+                                //email = value;
+                              },
+                              style: TextStyle(
                                 color: Color(0xFFD4D4D4),
                               ),
+                              decoration: kTextFieldDecoration.copyWith(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 1.0),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(32.0)),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 2.0),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(32.0)),
+                                  ),
+                                  hintStyle: TextStyle(
+                                    color: Color(0xFFB8B8B8),
+                                  ),
+                                  hintText: 'Search chat...'),
                             ),
-                            Flexible(
-                              child: TextField(
-                                //textAlign: TextAlign.center,
-                                onChanged: (value) {
-                                  //Do something with the user input.
-                                  //email = value;
-                                },
-                                style: TextStyle(
-                                  color: Color(0xFFD4D4D4),
-                                ),
-                                decoration: kTextFieldDecoration.copyWith(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 1.0),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(32.0)),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 2.0),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(32.0)),
-                                    ),
-                                    hintStyle: TextStyle(
-                                      color: Color(0xFFB8B8B8),
-                                    ),
-                                    hintText: 'Search chat...'),
-                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Icon(
+                              FontAwesomeIcons.magnifyingGlass,
+                              color: Colors.white,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15),
-                              child: Icon(
-                                FontAwesomeIcons.magnifyingGlass,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        height: 50,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      height: 50,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, CreateChat.id);
+                        },
                         child: Icon(
                           FontAwesomeIcons.message,
                           color: Color(0xFFD4D4D4),
                         ),
                       ),
                     ),
-                  )
-                ],
-              ),
-              ChatsStream(),
-              Container(
-                //width: 100,
-                height: 55,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
+                  ),
+                )
+              ],
+            ),
+            ChatsStream(),
+            Container(
+              //width: 100,
+              height: 55,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Color(0xFFD4D4D4),
+                  ),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(0),
+                      topRight: Radius.circular(40),
+                      topLeft: Radius.circular(40))),
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.gripLines,
                       color: Color(0xFFD4D4D4),
                     ),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(0),
-                        bottomRight: Radius.circular(0),
-                        topRight: Radius.circular(40),
-                        topLeft: Radius.circular(40))),
-                child: Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.gripLines,
-                        color: Color(0xFFD4D4D4),
-                      ),
-                      Icon(
-                        FontAwesomeIcons.inbox,
-                        color: Color(0xFFD4D4D4),
-                      ),
-                      // MaterialButton(
-                      //   onPressed: null,
-                      //   height: 300,
-                      //   color: Colors.red,
-                      //   child: Text('e'),
-                      // ),
-                      Icon(
-                        FontAwesomeIcons.phone,
-                        color: Color(0xFFD4D4D4),
-                      ),
-                      Icon(
+                    Icon(
+                      FontAwesomeIcons.inbox,
+                      color: Color(0xFF9DCAEB),
+                    ),
+                    // MaterialButton(
+                    //   onPressed: null,
+                    //   height: 300,
+                    //   color: Colors.red,
+                    //   child: Text('e'),
+                    // ),
+                    Icon(
+                      FontAwesomeIcons.phone,
+                      color: Color(0xFFD4D4D4),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, ProfilePage.id);
+                      },
+                      child: Icon(
                         FontAwesomeIcons.gears,
                         color: Color(0xFFD4D4D4),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

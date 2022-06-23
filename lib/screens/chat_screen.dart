@@ -24,16 +24,40 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
-
+  var username;
+  var name;
+  var nickname;
+  var email;
   String? messageText;
+
   void getCurrentUser() async {
     loggedInUser = await firebaseManager.getCurrentUser();
+    //var userDataInit = _firestore.collection('users').doc();
+    //var userDataRef = await userDataInit.get();
+    // for(var user in userDataRef.){
+    //
+    // }
+    //print(loggedInUser!.email);
+    await for (var snapshot in _firestore.collection('users').snapshots()) {
+      for (var user in snapshot.docs) {
+        if (user.data()['email'] == loggedInUser!.email) {
+          setState(() {
+            username = user.data()['username'];
+            name = user.data()['name'];
+            nickname = user.data()['nickname'];
+            email = user.data()['email'];
+          });
+
+          print(user.data()['name']);
+        }
+      }
+    }
   }
 
   void messageStream() async {
     await for (var snapshot in _firestore.collection('messages').snapshots()) {
       for (var message in snapshot.docs) {
-        print(message.data());
+        //print(message.data());
       }
     }
   }
@@ -113,7 +137,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(10, 34, 0, 0),
                               child: Text(
-                                loggedInUser!.email,
+                                name,
                                 style: TextStyle(color: Colors.black87),
                               ),
                             ),
@@ -127,14 +151,19 @@ class _ChatScreenState extends State<ChatScreen> {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(110, 0, 0, 0),
-                          child: Icon(
-                            FontAwesomeIcons.video,
-                            color: Color(0xFFD4D4D4),
+                          padding: const EdgeInsets.fromLTRB(150, 10, 0, 0),
+                          child: GestureDetector(
+                            onTap: () {
+                              print(name);
+                            },
+                            child: Icon(
+                              FontAwesomeIcons.video,
+                              color: Color(0xFFD4D4D4),
+                            ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 30),
+                          padding: const EdgeInsets.only(left: 40, top: 10),
                           child: Icon(
                             FontAwesomeIcons.phone,
                             color: Color(0xFFD4D4D4),

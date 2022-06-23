@@ -19,28 +19,28 @@ class _CreateChatState extends State<CreateChat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: null,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(FontAwesomeIcons.plus),
-              onPressed: () async {
-                Navigator.pushNamed(context, CreateChat.id);
-              }),
-        ],
-        title: Text(
-          'Chats',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-          ),
-        ),
-        backgroundColor: Colors.lightBlueAccent,
-      ),
+      //backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   leading: null,
+      //   actions: <Widget>[
+      //     IconButton(
+      //         icon: Icon(FontAwesomeIcons.plus),
+      //         onPressed: () async {
+      //           Navigator.pushNamed(context, CreateChat.id);
+      //         }),
+      //   ],
+      //   title: Text(
+      //     'Chats',
+      //     style: TextStyle(
+      //       fontWeight: FontWeight.bold,
+      //       fontSize: 30,
+      //     ),
+      //   ),
+      //   backgroundColor: Colors.lightBlueAccent,
+      // ),
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -54,66 +54,140 @@ class _CreateChatState extends State<CreateChat> {
             //     ),
             //   ),
             // ),
-            TextField(
-              textAlign: TextAlign.center,
-              onChanged: (value) {
-                //Do something with the user input.
-                userHolder = value;
-              },
-              style: TextStyle(
-                color: Colors.black,
+            Container(
+              //color: Colors.yellow,
+              //width: 200,
+              height: 95,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(35),
+                    bottomLeft: Radius.circular(35)),
               ),
-              decoration: kTextFieldDecoration.copyWith(
-                  hintText: 'Enter people you want in the chat'),
-            ),
-            RoundedButton(
-                text: 'Add',
-                color: Colors.lightBlueAccent,
-                onPress: () {
-                  users.add(userHolder);
-                }),
-            TextField(
-              textAlign: TextAlign.center,
-              onChanged: (value) {
-                //Do something with the user input.
-                chatName = value;
-              },
-              style: TextStyle(
-                color: Colors.black,
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      FontAwesomeIcons.arrowLeft,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 85),
+                    child: Text(
+                      'Create Chats',
+                      style: TextStyle(
+                        fontSize: 31,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              decoration:
-                  kTextFieldDecoration.copyWith(hintText: 'Enter Chat Name'),
             ),
-            RoundedButton(
-                text: 'Create Chat',
-                color: Colors.lightBlueAccent,
-                onPress: () async {
-                  var chat = _firestore
-                      .collection('Chats')
-                      .orderBy('id', descending: true)
-                      .limit(1);
-                  var chatRef = await chat.get();
-                  var chatID;
-                  for (var snapshot in chatRef.docs) {
-                    chatID = snapshot.get('id');
-                  }
-                  chatID++;
-                  if (users.length == 2) {
-                    _firestore.collection('Chats').add({
-                      'id': chatID,
-                      'name': chatName,
-                      'type': 'pc',
-                      'users': users,
-                    });
-                  } else {
-                    _firestore.collection('Chats').add({
-                      'id': chatID,
-                      'name': chatName,
-                      'type': 'gc',
-                      'users': users,
-                    });
-                  }
-                }),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    //controller: messageTextController,
+                    onChanged: (value) {
+                      //Do something with the user input.
+                      userHolder = value;
+                    },
+                    decoration: kTextFieldDecoration.copyWith(
+                        filled: true,
+                        fillColor: Color(0xFFF6F6F6),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF9DCAEB), width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF9DCAEB), width: 2.0),
+                          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                        ),
+                        hintStyle: TextStyle(
+                          color: Color(0xFFB8B8B8),
+                        ),
+                        hintText: 'Add users...'),
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                RoundedButton(
+                    text: 'Add',
+                    color: Color(0xFF9DCAEB),
+                    onPress: () {
+                      users.add(userHolder);
+                    }),
+                TextField(
+                  textAlign: TextAlign.center,
+                  //controller: messageTextController,
+                  onChanged: (value) {
+                    //Do something with the user input.
+                    chatName = value;
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      filled: true,
+                      fillColor: Color(0xFFF6F6F6),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xFF9DCAEB), width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xFF9DCAEB), width: 2.0),
+                        borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                      ),
+                      hintStyle: TextStyle(
+                        color: Color(0xFFB8B8B8),
+                      ),
+                      hintText: 'Enter chat name...'),
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                RoundedButton(
+                    text: 'Create Chat',
+                    color: Color(0xFF9DCAEB),
+                    onPress: () async {
+                      var chat = _firestore
+                          .collection('Chats')
+                          .orderBy('id', descending: true)
+                          .limit(1);
+                      var chatRef = await chat.get();
+                      var chatID;
+                      for (var snapshot in chatRef.docs) {
+                        chatID = snapshot.get('id');
+                      }
+                      chatID++;
+                      if (users.length == 2) {
+                        _firestore.collection('Chats').add({
+                          'id': chatID,
+                          'name': chatName,
+                          'type': 'pc',
+                          'users': users,
+                        });
+                      } else {
+                        _firestore.collection('Chats').add({
+                          'id': chatID,
+                          'name': chatName,
+                          'type': 'gc',
+                          'users': users,
+                        });
+                      }
+                    }),
+              ],
+            ),
           ],
         ),
       ),
