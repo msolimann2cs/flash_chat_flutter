@@ -210,17 +210,37 @@ class _MainScreenState extends State<MainScreen> {
                       topRight: Radius.circular(40),
                       topLeft: Radius.circular(40))),
               child: Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(0.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(
-                      FontAwesomeIcons.gripLines,
-                      color: Color(0xFFD4D4D4),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.phone,
+                          color: Color(0xFFD4D4D4),
+                        ),
+                        Text(
+                          'Calls',
+                          style: TextStyle(fontSize: 10),
+                        )
+                      ],
                     ),
-                    Icon(
-                      FontAwesomeIcons.inbox,
-                      color: Color(0xFF9DCAEB),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.solidComments,
+                          color: Color(0xFF9DCAEB),
+                        ),
+                        Text(
+                          'Chats',
+                          style: TextStyle(fontSize: 10),
+                        )
+                      ],
                     ),
                     // MaterialButton(
                     //   onPressed: null,
@@ -228,17 +248,37 @@ class _MainScreenState extends State<MainScreen> {
                     //   color: Colors.red,
                     //   child: Text('e'),
                     // ),
-                    Icon(
-                      FontAwesomeIcons.phone,
-                      color: Color(0xFFD4D4D4),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.userGroup,
+                          color: Color(0xFFD4D4D4),
+                        ),
+                        Text(
+                          'Friends',
+                          style: TextStyle(fontSize: 10),
+                        )
+                      ],
                     ),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, ProfilePage.id);
                       },
-                      child: Icon(
-                        FontAwesomeIcons.gears,
-                        color: Color(0xFFD4D4D4),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.solidUser,
+                            color: Color(0xFFD4D4D4),
+                          ),
+                          Text(
+                            'Profile',
+                            style: TextStyle(fontSize: 10),
+                          )
+                        ],
                       ),
                     ),
                   ],
@@ -360,14 +400,11 @@ class ChatHolder extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
-                          child: Expanded(
-                            flex: 0,
-                            child: CircleAvatar(
-                              radius: 26,
-                              backgroundColor: Colors.white,
-                              backgroundImage:
-                                  AssetImage('images/EmptyProfile.png'),
-                            ),
+                          child: CircleAvatar(
+                            radius: 26,
+                            backgroundColor: Colors.white,
+                            backgroundImage:
+                                AssetImage('images/EmptyProfile.png'),
                           ),
                         ),
                         Expanded(

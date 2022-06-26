@@ -179,21 +179,43 @@ class _ProfilePageState extends State<ProfilePage> {
                       topRight: Radius.circular(40),
                       topLeft: Radius.circular(40))),
               child: Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(5.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(
-                      FontAwesomeIcons.gripLines,
-                      color: Color(0xFFD4D4D4),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.phone,
+                          color: Color(0xFFD4D4D4),
+                        ),
+                        Text(
+                          'Calls',
+                          style: TextStyle(
+                            fontSize: 10,
+                          ),
+                        )
+                      ],
                     ),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, MainScreen.id);
                       },
-                      child: Icon(
-                        FontAwesomeIcons.inbox,
-                        color: Color(0xFFD4D4D4),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.solidComments,
+                            color: Color(0xFFD4D4D4),
+                          ),
+                          Text(
+                            'Chats',
+                            style: TextStyle(fontSize: 10),
+                          )
+                        ],
                       ),
                     ),
                     // MaterialButton(
@@ -202,18 +224,33 @@ class _ProfilePageState extends State<ProfilePage> {
                     //   color: Colors.red,
                     //   child: Text('e'),
                     // ),
-                    Icon(
-                      FontAwesomeIcons.phone,
-                      color: Color(0xFFD4D4D4),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.userGroup,
+                          color: Color(0xFFD4D4D4),
+                        ),
+                        Text(
+                          'Friends',
+                          style: TextStyle(fontSize: 10),
+                        )
+                      ],
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        //Navigator.pushNamed(context, ProfilePage.id);
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.gears,
-                        color: Color(0xFF9DCAEB),
-                      ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.solidUser,
+                          color: Color(0xFF9DCAEB),
+                        ),
+                        Text(
+                          'Profile',
+                          style: TextStyle(fontSize: 10),
+                        )
+                      ],
                     ),
                   ],
                 ),

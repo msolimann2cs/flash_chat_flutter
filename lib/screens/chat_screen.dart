@@ -4,6 +4,10 @@ import 'package:flash_chat_flutter/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:agora_rtc_engine/rtc_engine.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'video_call_screen.dart';
+import 'voice_call_screen.dart';
 
 FirebaseManager firebaseManager = FirebaseManager();
 
@@ -29,6 +33,8 @@ class _ChatScreenState extends State<ChatScreen> {
   var nickname;
   var email;
   String? messageText;
+
+  ClientRole _role = ClientRole.Broadcaster;
 
   void getCurrentUser() async {
     loggedInUser = await firebaseManager.getCurrentUser();
@@ -156,17 +162,58 @@ class _ChatScreenState extends State<ChatScreen> {
                             onTap: () {
                               print(name);
                             },
-                            child: Icon(
-                              FontAwesomeIcons.video,
-                              color: Color(0xFFD4D4D4),
+                            child: GestureDetector(
+                              onTap: () async {
+                                setState(() {
+                                  // _channelController.text.isEmpty
+                                  //     ? _validateError = true
+                                  //     : _validateError = false;
+                                });
+                                await _handleCameraAndMic(Permission.camera);
+                                await _handleCameraAndMic(
+                                    Permission.microphone);
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => VideoCallPage(
+                                      channelName: 'test',
+                                      role: _role,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Icon(
+                                FontAwesomeIcons.video,
+                                color: Color(0xFFD4D4D4),
+                              ),
                             ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 40, top: 10),
-                          child: Icon(
-                            FontAwesomeIcons.phone,
-                            color: Color(0xFFD4D4D4),
+                          child: GestureDetector(
+                            onTap: () async {
+                              setState(() {
+                                // _channelController.text.isEmpty
+                                //     ? _validateError = true
+                                //     : _validateError = false;
+                              });
+                              //await _handleCameraAndMic(Permission.camera);
+                              await _handleCameraAndMic(Permission.microphone);
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => VoiceCallPage(
+                                    channelName: 'test',
+                                    role: _role,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Icon(
+                              FontAwesomeIcons.phone,
+                              color: Color(0xFFD4D4D4),
+                            ),
                           ),
                         )
                       ],
@@ -355,4 +402,9 @@ class MessageBubble extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _handleCameraAndMic(Permission permission) async {
+  final status = await permission.request();
+  print(status);
 }
