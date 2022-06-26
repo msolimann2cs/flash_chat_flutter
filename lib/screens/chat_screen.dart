@@ -176,7 +176,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => VideoCallPage(
-                                      channelName: 'test',
+                                      channelName: widget.chatID,
                                       role: _role,
                                     ),
                                   ),

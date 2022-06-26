@@ -3,8 +3,13 @@ import 'dart:async';
 import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
-import 'package:flash_chat_flutter/screens/chat_screen.dart';
+//import 'package:flash_chat_flutter/screens/chat_screen.dart';
+//import 'package:web_socket_channel/web_socket_channel.dart';
+//import 'package:web_socket_channel/io.dart';
+//import 'package:web_socket_channel/status.dart' as status;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 //import '../utils/settings.dart';
 
@@ -48,6 +53,49 @@ class _VideoCallPageState extends State<VideoCallPage> {
     initialize();
   }
 
+  Future getChannelToken() async {
+    //var channel = IOWebSocketChannel.connect(Uri.parse('ws://localhost:1234'));
+    // IOWebSocketChannel? channel;
+    // try {
+    //   // Connect to our backend.
+    //   channel = IOWebSocketChannel.connect('http://localhost:3000/rtctoken');
+    // } catch (e) {
+    //   // If there is any error that might be because you need to use another connection.
+    //   print("Error on connecting to websocket: " + e.toString());
+    // }
+    //channel.
+    //final url;
+    //Future getData() async {
+    //print(widget.channelName!);
+    http.Response response = await http.get(Uri.parse(
+        'http://10.0.2.2:3000/rtctoken?isPublisher=true&channel=${widget.channelName!}'));
+
+    // if (response.statusCode == 200) {
+    //   String responseData = response.body;
+    //   var decodedData = jsonDecode(responseData);
+    //
+    //   return decodedData;
+    // } else {
+    //   print(response.statusCode);
+    // }
+    String responseData = response.body;
+    var decodedData = jsonDecode(responseData);
+
+    return decodedData;
+  }
+
+  Future<dynamic> finalToken() async {
+    var channelData = await getChannelToken();
+    //var channelToken = channelData['token'];
+    return channelData;
+  }
+  //
+  // String tokenString() async {
+  //   dynamic channelData = await finalToken();
+  //   String channelToken = channelData('token');
+  //   return channelToken;
+  // }
+
   Future<void> initialize() async {
     if (APP_ID.isEmpty) {
       setState(() {
@@ -65,7 +113,15 @@ class _VideoCallPageState extends State<VideoCallPage> {
     VideoEncoderConfiguration configuration = VideoEncoderConfiguration();
     configuration.dimensions = VideoDimensions(width: 1920, height: 1080);
     await _engine.setVideoEncoderConfiguration(configuration);
-    await _engine.joinChannel(Token, widget.channelName!, null, 0); //token
+    dynamic channelData = await finalToken();
+    String channelToken = channelData['token'];
+    int channelUID = channelData['uid'];
+    print('??????????????????????????????????????????????????????????');
+    //"006be503467d4a24a64a19be028749340d0IACo5vTCcfuiVKzejre0+CXUVnWLXYkjpcoqx4dJJBj6y869vGRp+a/+IgBW4iQ4YOO5YgQAAQDwn7hiAgDwn7hiAwDwn7hiBADwn7hi"
+    //006be503467d4a24a64a19be028749340d0IACsSm+dI8//B6XQsrmqAkCNXGcu1gDNbnOOJ4/DAP57Bs69vGQ3ibBxIgBW4iQ44uO5YgQAAQByoLhiAgByoLhiAwByoLhiBAByoLhi
+    print(channelToken);
+    await _engine.joinChannel(
+        channelToken, widget.channelName!, null, channelUID); //token
   }
 
   /// Create agora sdk instance and initialize

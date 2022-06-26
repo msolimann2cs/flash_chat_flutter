@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const APP_ID = '87f28bece77240929dacb9bc16fa4e44';
+const APP_ID = 'be503467d4a24a64a19be028749340d0';
 const Token =
-    '006be503467d4a24a64a19be028749340d0IAB9Nu+EeuRyuQTIKk8AUuqQFPttAtjo9SDBFqL0xzkC/Qx+f9gAAAAAEACDxJolCF+5YgEAAQAHX7li';
+    '006be503467d4a24a64a19be028749340d0IABVQb4rE8Nh0eUcg7GDeBZsI+QUz+c0J1e9ym3hFkC4Kc69vGQAAAAAEABGROOeO925YgEAAQA73bli';
 
 const kSendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,

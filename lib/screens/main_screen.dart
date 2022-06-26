@@ -34,7 +34,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF7F7F7),
+      //backgroundColor: Color(0xFFF7F7F7),
+      backgroundColor: Colors.white,
       // appBar: AppBar(
       //   leading: null,
       //   actions: <Widget>[
@@ -127,7 +128,8 @@ class _MainScreenState extends State<MainScreen> {
                             padding: const EdgeInsets.only(left: 15),
                             child: Icon(
                               FontAwesomeIcons.magnifyingGlass,
-                              color: Color(0xFFD4D4D4),
+                              //color: Color(0xFFD4D4D4),
+                              color: Color(0xFF595959),
                             ),
                           ),
                           Flexible(
@@ -138,8 +140,8 @@ class _MainScreenState extends State<MainScreen> {
                                 //email = value;
                               },
                               style: TextStyle(
-                                color: Color(0xFFD4D4D4),
-                              ),
+                                  //color: Color(0xFFD4D4D4),
+                                  color: Color(0xFF595959)),
                               decoration: kTextFieldDecoration.copyWith(
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -154,8 +156,8 @@ class _MainScreenState extends State<MainScreen> {
                                         BorderRadius.all(Radius.circular(32.0)),
                                   ),
                                   hintStyle: TextStyle(
-                                    color: Color(0xFFB8B8B8),
-                                  ),
+                                      //color: Color(0xFFB8B8B8),
+                                      color: Color(0xFF595959)),
                                   hintText: 'Search chat...'),
                             ),
                           ),
@@ -185,10 +187,9 @@ class _MainScreenState extends State<MainScreen> {
                         onTap: () {
                           Navigator.pushNamed(context, CreateChat.id);
                         },
-                        child: Icon(
-                          FontAwesomeIcons.message,
-                          color: Color(0xFFD4D4D4),
-                        ),
+                        child: Icon(FontAwesomeIcons.penToSquare,
+                            //color: Color(0xFFD4D4D4),
+                            color: Color(0xFF595959)),
                       ),
                     ),
                   ),
@@ -220,7 +221,8 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         Icon(
                           FontAwesomeIcons.phone,
-                          color: Color(0xFFD4D4D4),
+                          //color: Color(0xFFD4D4D4),
+                          color: Color(0xFF595959),
                         ),
                         Text(
                           'Calls',
@@ -229,16 +231,23 @@ class _MainScreenState extends State<MainScreen> {
                       ],
                     ),
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          FontAwesomeIcons.solidComments,
-                          color: Color(0xFF9DCAEB),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Icon(
+                            FontAwesomeIcons.comments,
+                            color: Color(0xDD9DCAEB),
+                            //color: Color(0xFF595959),
+                          ),
                         ),
-                        Text(
-                          'Chats',
-                          style: TextStyle(fontSize: 10),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3, top: 3),
+                          child: Text(
+                            'Chats',
+                            style: TextStyle(fontSize: 10),
+                          ),
                         )
                       ],
                     ),
@@ -254,7 +263,8 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         Icon(
                           FontAwesomeIcons.userGroup,
-                          color: Color(0xFFD4D4D4),
+                          //color: Color(0xFFD4D4D4),
+                          color: Color(0xFF595959),
                         ),
                         Text(
                           'Friends',
@@ -272,7 +282,8 @@ class _MainScreenState extends State<MainScreen> {
                         children: [
                           Icon(
                             FontAwesomeIcons.solidUser,
-                            color: Color(0xFFD4D4D4),
+                            //color: Color(0xFFD4D4D4),
+                            color: Color(0xFF595959),
                           ),
                           Text(
                             'Profile',
@@ -414,7 +425,8 @@ class ChatHolder extends StatelessWidget {
                             child: Text(
                               chatName!,
                               style: TextStyle(
-                                color: Colors.black54,
+                                //color: Colors.black54,
+                                color: Color(0xFF595959),
                                 fontSize: 30,
                               ),
                             ),
@@ -431,7 +443,8 @@ class ChatHolder extends StatelessWidget {
                             },
                             child: Icon(
                               FontAwesomeIcons.solidTrashCan,
-                              color: Color(0xFFD4D4D4),
+                              //color: Color(0xFFD4D4D4),
+                              color: Color(0xFF595959),
                             ),
                           ),
                         ),
