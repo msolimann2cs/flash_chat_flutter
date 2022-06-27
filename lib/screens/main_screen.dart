@@ -374,9 +374,10 @@ class PrivateChatStream extends StatelessWidget {
           final chatID = chat.id; //chat['id'];
           //final timeStamp = message['timestamp'];
           bool userPresent = false;
-
+          String? name = chatUsers[0];
+          name = name?.substring(0, name.indexOf('@gmail.com', 0));
           final chatHolder = ChatHolderNew(
-            chatName: chatName,
+            chatName: name,
             //text: chatID,
             chatID: chatID,
             isCurrentUser: userPresent,
@@ -516,7 +517,7 @@ class _ChatHolderNewState extends State<ChatHolderNew> {
         .collection('Chats')
         .doc(widget.chatID)
         .collection('messages')
-        .orderBy('timestamp')
+        .orderBy('timestamp', descending: true)
         .limit(1);
     var chatTextsRef = await chatTexts.get();
     //print('???');
@@ -564,8 +565,8 @@ class _ChatHolderNewState extends State<ChatHolderNew> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, ChatScreen.id,
-                  arguments: widget.chatID);
+              // Navigator.pushNamed(context, ChatScreen.id,
+              //     arguments: widget.chatID);
               Navigator.push(
                 context,
                 MaterialPageRoute(
