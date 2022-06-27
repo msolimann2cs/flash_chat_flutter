@@ -3,6 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flash_chat_flutter/components/rounded_button.dart';
 import 'package:flash_chat_flutter/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flash_chat_flutter/services/firebase_manager.dart';
+
+FirebaseManager firebaseManager = FirebaseManager();
+var loggedInUser;
 
 class CreateChat extends StatefulWidget {
   static String id = 'create_chat_screen';
@@ -15,7 +19,20 @@ class _CreateChatState extends State<CreateChat> {
   final _firestore = FirebaseFirestore.instance;
   var userHolder;
   List<String> users = [];
+
   var chatName;
+
+  void getCurrentUser() async {
+    loggedInUser = await firebaseManager.getCurrentUser();
+    users = [loggedInUser!.email];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

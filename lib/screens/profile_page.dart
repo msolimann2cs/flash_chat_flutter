@@ -7,6 +7,7 @@ import 'package:flash_chat_flutter/services/firebase_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flash_chat_flutter/constants.dart';
 import 'package:flash_chat_flutter/components/rounded_button.dart';
+import 'package:ionicons/ionicons.dart';
 
 final _firestore = FirebaseFirestore.instance;
 FirebaseManager firebaseManager = FirebaseManager();
@@ -179,22 +180,28 @@ class _ProfilePageState extends State<ProfilePage> {
                       topRight: Radius.circular(40),
                       topLeft: Radius.circular(40))),
               child: Padding(
-                padding: EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(0.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          FontAwesomeIcons.phone,
-                          color: Color(0xFFD4D4D4),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Icon(
+                            Ionicons.call_outline,
+                            size: 33,
+                            //color: Color(0xFFD4D4D4),
+                            color: Color(0xFF595959),
+                          ),
                         ),
-                        Text(
-                          'Calls',
-                          style: TextStyle(
-                            fontSize: 10,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5, top: 1),
+                          child: Text(
+                            'Calls',
+                            style: TextStyle(fontSize: 11),
                           ),
                         )
                       ],
@@ -204,16 +211,28 @@ class _ProfilePageState extends State<ProfilePage> {
                         Navigator.pushNamed(context, MainScreen.id);
                       },
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
-                            FontAwesomeIcons.solidComments,
-                            color: Color(0xFFD4D4D4),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Icon(
+                              //FontAwesomeIcons.comments,
+                              Ionicons.chatbubbles_outline,
+                              size: 32,
+                              color: Color(0xFF595959),
+                              //color: Color(0xFF595959),
+                            ),
                           ),
-                          Text(
-                            'Chats',
-                            style: TextStyle(fontSize: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 2, top: 2),
+                            child: Text(
+                              'Chats',
+                              style: TextStyle(
+                                fontSize: 11,
+                                //color: Color(0xFF8CB9DA),
+                              ),
+                            ),
                           )
                         ],
                       ),
@@ -225,34 +244,55 @@ class _ProfilePageState extends State<ProfilePage> {
                     //   child: Text('e'),
                     // ),
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          FontAwesomeIcons.userGroup,
-                          color: Color(0xFFD4D4D4),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 0.0),
+                          child: Icon(
+                            Ionicons.people_outline,
+                            size: 38,
+                            //color: Color(0xFFD4D4D4),
+                            color: Color(0xFF595959),
+                          ),
                         ),
-                        Text(
-                          'Friends',
-                          style: TextStyle(fontSize: 10),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 0.5),
+                          child: Text(
+                            'Friends',
+                            style: TextStyle(
+                              fontSize: 11,
+                            ),
+                          ),
                         )
                       ],
                     ),
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          FontAwesomeIcons.solidUser,
-                          color: Color(0xFF9DCAEB),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Icon(
+                            Ionicons.person_outline,
+                            //color: Color(0xFFD4D4D4),
+                            size: 32,
+                            color: Color(0xFF9DCAEB),
+                          ),
                         ),
-                        Text(
-                          'Profile',
-                          style: TextStyle(fontSize: 10),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 2),
+                          child: Text(
+                            'Profile',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Color(0xFF8CB9DA),
+                            ),
+                          ),
                         )
                       ],
                     ),
-                  ],
+                  ], //Color(0xFF9DCAEB)
                 ),
               ),
             ),
