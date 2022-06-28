@@ -242,6 +242,11 @@ class _CreateChatState extends State<CreateChat> {
                               showModalBottomSheet(
                                   context: context,
                                   isScrollControlled: true,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(60),
+                                    ),
+                                  ),
                                   builder: (context) => SingleChildScrollView(
                                       child: Container(
                                           padding: EdgeInsets.only(
