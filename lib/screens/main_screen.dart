@@ -123,7 +123,11 @@ class _MainScreenState extends State<MainScreen> {
                       height: 50,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, CreateChat.id);
+                          //Navigator.pushNamed(context, CreateChat.id);
+                          showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (context) => CreateChat());
                         },
                         child: Icon(FontAwesomeIcons.penToSquare,
                             //color: Color(0xFFD4D4D4),
@@ -374,7 +378,7 @@ class PrivateChatStream extends StatelessWidget {
           final chatID = chat.id; //chat['id'];
           //final timeStamp = message['timestamp'];
           bool userPresent = false;
-          String? name = chatUsers[0];
+          String? name = chatUsers[1];
           name = name?.substring(0, name.indexOf('@gmail.com', 0));
           final chatHolder = ChatHolderNew(
             chatName: name,
@@ -567,6 +571,7 @@ class _ChatHolderNewState extends State<ChatHolderNew> {
             onTap: () {
               // Navigator.pushNamed(context, ChatScreen.id,
               //     arguments: widget.chatID);
+              //print(widget.chatID);
               Navigator.push(
                 context,
                 MaterialPageRoute(

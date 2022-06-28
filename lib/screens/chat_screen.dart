@@ -1,3 +1,4 @@
+import 'package:flash_chat_flutter/screens/main_screen.dart';
 import 'package:flash_chat_flutter/services/firebase_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_flutter/constants.dart';
@@ -12,7 +13,7 @@ import 'voice_call_screen.dart';
 FirebaseManager firebaseManager = FirebaseManager();
 
 final _firestore = FirebaseFirestore.instance;
-final scrollController = ScrollController();
+//final scrollController = ScrollController();
 //User? loggedInUser;
 var loggedInUser;
 var chatID_main;
@@ -120,7 +121,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           child: GestureDetector(
                             onTap: () {
                               //_auth.signOut();
-                              Navigator.pop(context);
+                              //Navigator.pop(context);
+                              Navigator.pushNamed(context, MainScreen.id);
                             },
                             //messageStream();,
                             child: Icon(
@@ -275,13 +277,14 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   TextButton(
                     onPressed: () {
+                      print('c');
                       //Implement send functionality.
-                      messageTextController.clear();
-                      if (scrollController.hasClients) {
-                        final position =
-                            scrollController.position.minScrollExtent;
-                        scrollController.jumpTo(position);
-                      }
+                      //messageTextController.clear();
+                      // if (scrollController.hasClients) {
+                      //   final position =
+                      //       scrollController.position.minScrollExtent;
+                      //   scrollController.jumpTo(position);
+                      // }
                       _firestore
                           .collection('Chats')
                           .doc(chatID_main)
@@ -345,7 +348,7 @@ class MessagesStream extends StatelessWidget {
         return Expanded(
           child: ListView(
             reverse: true,
-            controller: scrollController,
+            //controller: scrollController,
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             children: messageBubbles,
           ),
