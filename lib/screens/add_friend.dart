@@ -53,7 +53,7 @@ class _AddFriendState extends State<AddFriend> {
                   //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 153.0),
+                      padding: const EdgeInsets.only(left: 150.0),
                       child: Text(
                         'New Friend',
                         textAlign: TextAlign.center,
@@ -115,7 +115,7 @@ class _AddFriendState extends State<AddFriend> {
                             hintStyle: TextStyle(
                                 //color: Color(0xFFB8B8B8),
                                 color: Color(0xFF595959)),
-                            hintText: 'Search Users...'),
+                            hintText: 'Email...'),
                       ),
                     ),
                     Padding(

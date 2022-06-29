@@ -1,4 +1,5 @@
 import 'package:flash_chat_flutter/screens/add_friend.dart';
+import 'package:flash_chat_flutter/screens/create_group.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flash_chat_flutter/components/rounded_button.dart';
@@ -224,17 +225,36 @@ class _CreateChatState extends State<CreateChat> {
                       ),
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 18.0),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Ionicons.people, size: 38,
-                                  //color: Color(0xFFD4D4D4),
-                                  color: Color(0xBB595959),
-                                ),
-                                Text('New Group'),
-                              ],
+                          GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(60),
+                                    ),
+                                  ),
+                                  builder: (context) => SingleChildScrollView(
+                                      child: Container(
+                                          padding: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context)
+                                                  .viewInsets
+                                                  .bottom),
+                                          child: CreateGroup())));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 18.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Ionicons.people, size: 38,
+                                    //color: Color(0xFFD4D4D4),
+                                    color: Color(0xBB595959),
+                                  ),
+                                  Text('New Group'),
+                                ],
+                              ),
                             ),
                           ),
                           GestureDetector(
@@ -480,7 +500,6 @@ class _friendState extends State<friend> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     print(widget.name);
   }
