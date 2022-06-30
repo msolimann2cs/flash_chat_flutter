@@ -1,8 +1,8 @@
-import 'package:flash_chat_flutter/screens/login_screen.dart';
-import 'package:flash_chat_flutter/screens/registration_screen.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/login_screen.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flash_chat_flutter/components/rounded_button.dart';
+import 'package:flash_chat_flutter/application layer/resources/components/rounded_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static String id = 'welcome_screen';
@@ -85,6 +85,3 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     );
   }
 }
-
-//Login button color: Colors.lightBlueAccent
-//Register button color: Colors.blueAccent

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flash_chat_flutter/constants.dart';
+import 'package:flash_chat_flutter/application%20layer/resources/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flash_chat_flutter/services/firebase_manager.dart';
+import 'package:flash_chat_flutter/bloc/repository/firebase_manager.dart';
 
 final scrollController = ScrollController();
 FirebaseManager firebaseManager = FirebaseManager();

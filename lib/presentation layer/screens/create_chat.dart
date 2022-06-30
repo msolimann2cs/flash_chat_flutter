@@ -1,11 +1,11 @@
-import 'package:flash_chat_flutter/screens/add_friend.dart';
-import 'package:flash_chat_flutter/screens/create_group.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/add_friend.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/create_group.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flash_chat_flutter/components/rounded_button.dart';
-import 'package:flash_chat_flutter/constants.dart';
+import 'package:flash_chat_flutter/application layer/resources/components/rounded_button.dart';
+import 'package:flash_chat_flutter/application%20layer/resources/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flash_chat_flutter/services/firebase_manager.dart';
+import 'package:flash_chat_flutter/bloc/repository/firebase_manager.dart';
 import 'package:ionicons/ionicons.dart';
 import 'chat_screen.dart';
 

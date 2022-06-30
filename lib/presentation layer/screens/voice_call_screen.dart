@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
-import 'package:flash_chat_flutter/screens/chat_screen.dart';
+import 'chat_screen.dart';
 import 'package:flutter/material.dart';
 
 //import '../utils/settings.dart';
 
-import 'package:flash_chat_flutter/constants.dart';
+import 'package:flash_chat_flutter/application%20layer/resources/constants.dart';
 
 class VoiceCallPage extends StatefulWidget {
   /// non-modifiable channel name of the page

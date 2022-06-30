@@ -13,7 +13,7 @@ import 'dart:convert';
 
 //import '../utils/settings.dart';
 
-import 'package:flash_chat_flutter/constants.dart';
+import 'package:flash_chat_flutter/application%20layer/resources/constants.dart';
 
 class VideoCallPage extends StatefulWidget {
   /// non-modifiable channel name of the page

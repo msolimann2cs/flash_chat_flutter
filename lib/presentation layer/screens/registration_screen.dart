@@ -1,18 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flash_chat_flutter/components/rounded_button.dart';
-import 'package:flash_chat_flutter/screens/main_screen.dart';
+import 'package:flash_chat_flutter/application layer/resources/components/rounded_button.dart';
+import 'chat_screen.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/main_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flash_chat_flutter/constants.dart';
-import 'package:flash_chat_flutter/screens/chat_screen.dart';
+import 'package:flash_chat_flutter/application%20layer/resources/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class LoginScreen extends StatefulWidget {
-  static String id = 'login_screen';
+final _firestore = FirebaseFirestore.instance;
+
+class RegistrationScreen extends StatefulWidget {
+  static String id = 'registration_screen';
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
   bool showSpinner = false;
   final _auth = FirebaseAuth.instance;
   String? email;
@@ -74,16 +77,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 24.0,
               ),
               RoundedButton(
-                text: 'Log in',
-                color: Colors.lightBlueAccent,
+                text: 'Register',
+                color: Colors.blueAccent,
                 onPress: () async {
+                  // print(email);
+                  // print(password);
                   setState(() {
                     showSpinner = true;
                   });
                   try {
-                    final user = await _auth.signInWithEmailAndPassword(
+                    final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email!, password: password!);
-                    if (user != null) {
+                    _firestore.collection('users').add({
+                      'email': email,
+                      'password': password,
+                    });
+                    if (newUser != null) {
                       Navigator.pushNamed(context, MainScreen.id);
                     }
                     setState(() {

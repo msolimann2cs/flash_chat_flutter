@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flash_chat_flutter/constants.dart';
-import 'package:flash_chat_flutter/components/rounded_button.dart';
+import 'package:flash_chat_flutter/application%20layer/resources/constants.dart';
+import 'package:flash_chat_flutter/application layer/resources/components/rounded_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flash_chat_flutter/services/firebase_manager.dart';
+import 'package:flash_chat_flutter/bloc/repository/firebase_manager.dart';
 
 FirebaseManager firebaseManager = FirebaseManager();
 final _firestore = FirebaseFirestore.instance;
