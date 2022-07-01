@@ -39,7 +39,6 @@ class _MainScreenState extends State<MainScreen> {
               inAsyncCall: state.showSpinner!,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Row(
                     children: [

@@ -12,6 +12,7 @@ class MainScreenProvider extends Cubit<MainScreenState> {
       FirebaseFirestore.instance.collection('Chats').orderBy('id').snapshots();
   var groupChatStreamSnapshots =
       FirebaseFirestore.instance.collection('Chats').orderBy('id').snapshots();
+
   void getCurrentUser() async {
     emit(MainScreenState(
         showSpinner: true, email: state.email, privateChat: state.privateChat));
