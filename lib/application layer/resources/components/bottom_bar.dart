@@ -1,9 +1,12 @@
+import 'package:flash_chat_flutter/presentation%20layer/screens/friends_screen.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/main_screen.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:flash_chat_flutter/application layer/resources/constants.dart';
 
 class BottomBar extends StatelessWidget {
-  BottomBar({this.nextPageID});
+  BottomBar();
 
   var nextPageID;
 
@@ -34,56 +37,66 @@ class BottomBar extends StatelessWidget {
             )
           ],
         ),
-        Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Icon(
-                Ionicons.chatbubbles_outline,
-                size: 32,
-                color: Color(0xDD9DCAEB),
-                //color: Color(0xFF595959),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 2, top: 2),
-              child: Text(
-                'Chats',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Color(0xFF8CB9DA),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, MainScreen.id);
+          },
+          child: Column(
+            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: Icon(
+                  Ionicons.chatbubbles_outline,
+                  size: 32,
+                  color: Color(0xDD9DCAEB),
+                  //color: Color(0xFF595959),
                 ),
               ),
-            )
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 0.0),
-              child: Icon(
-                Ionicons.people_outline,
-                size: 38,
-                color: Color(0xFF595959),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 0.5),
-              child: Text(
-                'Friends',
-                style: TextStyle(
-                  fontSize: 11,
+              Padding(
+                padding: const EdgeInsets.only(left: 2, top: 2),
+                child: Text(
+                  'Chats',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Color(0xFF8CB9DA),
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
         GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, nextPageID); //ProfilePage.id
+            Navigator.pushNamed(context, FriendsScreen.id);
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 0.0),
+                child: Icon(
+                  Ionicons.people_outline,
+                  size: 38,
+                  color: Color(0xFF595959),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 0.5),
+                child: Text(
+                  'Friends',
+                  style: TextStyle(
+                    fontSize: 11,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, ProfilePage.id); //ProfilePage.id
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

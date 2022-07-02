@@ -1,5 +1,6 @@
 import 'package:flash_chat_flutter/bloc/data_provider/create_group_provider.dart';
 import 'package:flash_chat_flutter/bloc/model/create_group_state.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/finalize_group_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_flutter/application%20layer/resources/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +49,7 @@ class _CreateGroupState extends State<CreateGroup> {
         return Column(
           children: [
             Container(
-              height: 650,
+              height: 660,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -67,18 +68,7 @@ class _CreateGroupState extends State<CreateGroup> {
                       //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Padding(
-                          padding:
-                              const EdgeInsets.only(left: 133.0, bottom: 10),
-                          child: Text(
-                            'Add Participants',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 21,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 75.0),
+                          padding: const EdgeInsets.only(left: 30.0),
                           child: GestureDetector(
                             onTap: () {
                               Navigator.pop(context);
@@ -94,11 +84,60 @@ class _CreateGroupState extends State<CreateGroup> {
                             ),
                           ),
                         ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(left: 85.0, bottom: 10),
+                          child: Text(
+                            'Add Participants',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 19,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 74.0, top: 0.87),
+                          child: GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(60),
+                                  ),
+                                ),
+                                builder: (cxt) => BlocProvider.value(
+                                  value: BlocProvider.of<CreateGroupProvider>(
+                                      context),
+                                  child: SingleChildScrollView(
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                              .viewInsets
+                                              .bottom),
+                                      child: FinalizeGroup(),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Next',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: state.activeNext!
+                                    ? Colors.black
+                                    : Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0, top: 10),
+                    padding: const EdgeInsets.only(left: 33.0, top: 10),
                     child: Row(
                       children: [
                         Padding(
@@ -284,7 +323,6 @@ class friend extends StatefulWidget {
 class _friendState extends State<friend> {
   final _firestore = FirebaseFirestore.instance;
   bool isChecked = false;
-  var cardIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -298,7 +336,7 @@ class _friendState extends State<friend> {
       return GestureDetector(
         onTap: () {
           List<Widget>? test = state.friends;
-          cardIndex = state.friends.length;
+          List<String>? friendmails = state.friendEmails;
           Widget test2 = choosenFriendCard(
             key: ValueKey(widget.name),
             name: widget.name,
@@ -306,21 +344,21 @@ class _friendState extends State<friend> {
 
           if (!isChecked) {
             test.add(test2);
+            friendmails!.add(widget.email);
             BlocProvider.of<CreateGroupProvider>(context)
-                .addChoosenFriend(test!);
+                .addChoosenFriend(test!, friendmails);
             //cardIndex++;
             print(test);
-            print(cardIndex);
           } else {
             Widget remove =
                 test.firstWhere((element) => element.key == test2.key);
             test.remove(remove);
+            friendmails!.remove(widget.email);
             BlocProvider.of<CreateGroupProvider>(context)
-                .removeChoosenFriend(test);
+                .removeChoosenFriend(test, friendmails);
 
             //cardIndex--;
             print(test);
-            print(cardIndex);
             if (state.friends.length == 0) {
               BlocProvider.of<CreateGroupProvider>(context).closeTab();
             }

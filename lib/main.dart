@@ -1,4 +1,5 @@
 import 'package:flash_chat_flutter/presentation%20layer/screens/create_chat.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/friends_screen.dart';
 import 'package:flash_chat_flutter/presentation%20layer/screens/main_screen.dart';
 import 'package:flash_chat_flutter/presentation%20layer/screens/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ class FlashChat extends StatelessWidget {
         MainScreen.id: (context) => MainScreen(),
         CreateChat.id: (context) => CreateChat(),
         ProfilePage.id: (context) => ProfilePage(),
+        FriendsScreen.id: (context) => FriendsScreen(),
       },
     );
   }

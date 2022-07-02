@@ -11,6 +11,7 @@ import 'package:flash_chat_flutter/application layer/resources/color_manager.dar
 import 'package:flash_chat_flutter/application layer/resources/components/bottom_bar.dart';
 import 'package:flash_chat_flutter/application layer/resources/components/private_chat_stream.dart';
 import 'package:flash_chat_flutter/application layer/resources/components/group_chat_stream.dart';
+import 'package:flash_chat_flutter/presentation layer/screens/friends_screen.dart';
 
 ColorManager colorManager = ColorManager();
 
@@ -182,8 +183,8 @@ class _MainScreenState extends State<MainScreen> {
                             topRight: Radius.circular(40),
                             topLeft: Radius.circular(40))),
                     child: BottomBar(
-                      nextPageID: ProfilePage.id,
-                    ),
+                        //nextPageID: FriendsScreen.id,
+                        ),
                   ),
                 ],
               ),
@@ -194,3 +195,5 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
+
+//ProfilePage.id
