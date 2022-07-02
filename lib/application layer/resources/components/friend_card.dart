@@ -18,8 +18,9 @@ class _friendState extends State<friend> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<NewChatProvider>(
-      create: (context) => NewChatProvider(),
+    return BlocProvider.value(
+      value: BlocProvider.of<NewChatProvider>(context),
+      //create: (context) => NewChatProvider(),
       child: BlocBuilder<NewChatProvider, NewChatState>(
         builder: (context, state) {
           return GestureDetector(

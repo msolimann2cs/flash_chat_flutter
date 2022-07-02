@@ -1,4 +1,7 @@
 import 'dart:math';
+import 'package:flash_chat_flutter/application%20layer/resources/components/bottom_bar.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/friends_screen.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/login_screen.dart';
 import 'package:flash_chat_flutter/presentation%20layer/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -165,136 +168,145 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            Container(
-              //width: 100,
-              height: 55,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Color(0xFFD4D4D4),
-                  ),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(0),
-                      topRight: Radius.circular(40),
-                      topLeft: Radius.circular(40))),
-              child: Padding(
-                padding: EdgeInsets.all(0.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: Icon(
-                            Ionicons.call_outline,
-                            size: 33,
-                            //color: Color(0xFFD4D4D4),
-                            color: Color(0xFF595959),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5, top: 1),
-                          child: Text(
-                            'Calls',
-                            style: TextStyle(fontSize: 11),
-                          ),
-                        )
-                      ],
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, MainScreen.id);
-                      },
-                      child: Column(
-                        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Icon(
-                              //FontAwesomeIcons.comments,
-                              Ionicons.chatbubbles_outline,
-                              size: 32,
-                              color: Color(0xFF595959),
-                              //color: Color(0xFF595959),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 2, top: 2),
-                            child: Text(
-                              'Chats',
-                              style: TextStyle(
-                                fontSize: 11,
-                                //color: Color(0xFF8CB9DA),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    // MaterialButton(
-                    //   onPressed: null,
-                    //   height: 300,
-                    //   color: Colors.red,
-                    //   child: Text('e'),
-                    // ),
-                    Column(
-                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 0.0),
-                          child: Icon(
-                            Ionicons.people_outline,
-                            size: 38,
-                            //color: Color(0xFFD4D4D4),
-                            color: Color(0xFF595959),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 0.5),
-                          child: Text(
-                            'Friends',
-                            style: TextStyle(
-                              fontSize: 11,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: Icon(
-                            Ionicons.person_outline,
-                            //color: Color(0xFFD4D4D4),
-                            size: 32,
-                            color: Color(0xFF9DCAEB),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 2),
-                          child: Text(
-                            'Profile',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Color(0xFF8CB9DA),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ], //Color(0xFF9DCAEB)
-                ),
-              ),
+            RoundedButton(
+              text: 'log out',
+              color: Colors.red,
+              onPress: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginScreen.id, (route) => false);
+              },
             ),
+            BottomBar(),
+            // Container(
+            //   //width: 100,
+            //   height: 55,
+            //   decoration: BoxDecoration(
+            //       color: Colors.white,
+            //       border: Border.all(
+            //         color: Color(0xFFD4D4D4),
+            //       ),
+            //       borderRadius: BorderRadius.only(
+            //           bottomLeft: Radius.circular(0),
+            //           bottomRight: Radius.circular(0),
+            //           topRight: Radius.circular(40),
+            //           topLeft: Radius.circular(40))),
+            //   child: Padding(
+            //     padding: EdgeInsets.all(0.0),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //       children: [
+            //         Column(
+            //           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           crossAxisAlignment: CrossAxisAlignment.start,
+            //           children: [
+            //             Padding(
+            //               padding: const EdgeInsets.only(top: 4.0),
+            //               child: Icon(
+            //                 Ionicons.call_outline,
+            //                 size: 33,
+            //                 //color: Color(0xFFD4D4D4),
+            //                 color: Color(0xFF595959),
+            //               ),
+            //             ),
+            //             Padding(
+            //               padding: const EdgeInsets.only(left: 5, top: 1),
+            //               child: Text(
+            //                 'Calls',
+            //                 style: TextStyle(fontSize: 11),
+            //               ),
+            //             )
+            //           ],
+            //         ),
+            //         GestureDetector(
+            //           onTap: () {
+            //             Navigator.pushNamed(context, MainScreen.id);
+            //           },
+            //           child: Column(
+            //             //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               Padding(
+            //                 padding: const EdgeInsets.only(top: 5),
+            //                 child: Icon(
+            //                   //FontAwesomeIcons.comments,
+            //                   Ionicons.chatbubbles_outline,
+            //                   size: 32,
+            //                   color: Color(0xFF595959),
+            //                   //color: Color(0xFF595959),
+            //                 ),
+            //               ),
+            //               Padding(
+            //                 padding: const EdgeInsets.only(left: 2, top: 2),
+            //                 child: Text(
+            //                   'Chats',
+            //                   style: TextStyle(
+            //                     fontSize: 11,
+            //                     //color: Color(0xFF8CB9DA),
+            //                   ),
+            //                 ),
+            //               )
+            //             ],
+            //           ),
+            //         ),
+            //         // MaterialButton(
+            //         //   onPressed: null,
+            //         //   height: 300,
+            //         //   color: Colors.red,
+            //         //   child: Text('e'),
+            //         // ),
+            //         Column(
+            //           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           crossAxisAlignment: CrossAxisAlignment.start,
+            //           children: [
+            //             Padding(
+            //               padding: const EdgeInsets.only(top: 0.0),
+            //               child: Icon(
+            //                 Ionicons.people_outline,
+            //                 size: 38,
+            //                 //color: Color(0xFFD4D4D4),
+            //                 color: Color(0xFF595959),
+            //               ),
+            //             ),
+            //             Padding(
+            //               padding: const EdgeInsets.only(top: 0.5),
+            //               child: Text(
+            //                 'Friends',
+            //                 style: TextStyle(
+            //                   fontSize: 11,
+            //                 ),
+            //               ),
+            //             )
+            //           ],
+            //         ),
+            //         Column(
+            //           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           crossAxisAlignment: CrossAxisAlignment.start,
+            //           children: [
+            //             Padding(
+            //               padding: const EdgeInsets.only(top: 5),
+            //               child: Icon(
+            //                 Ionicons.person_outline,
+            //                 //color: Color(0xFFD4D4D4),
+            //                 size: 32,
+            //                 color: Color(0xFF9DCAEB),
+            //               ),
+            //             ),
+            //             Padding(
+            //               padding: const EdgeInsets.only(top: 2),
+            //               child: Text(
+            //                 'Profile',
+            //                 style: TextStyle(
+            //                   fontSize: 11,
+            //                   color: Color(0xFF8CB9DA),
+            //                 ),
+            //               ),
+            //             )
+            //           ],
+            //         ),
+            //       ], //Color(0xFF9DCAEB)
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

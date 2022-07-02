@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bloc/bloc.dart';
 
 class NewChatProvider extends Cubit<NewChatState> {
-  NewChatProvider() : super(NewChatState(showSpinner: false));
+  NewChatProvider() : super(NewChatState(showSpinner: false, email: ''));
   FirebaseManager firebaseManager = FirebaseManager();
 
   var friendsStreamSnapshots =

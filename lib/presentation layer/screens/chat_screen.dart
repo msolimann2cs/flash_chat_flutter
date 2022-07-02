@@ -45,6 +45,8 @@ class _ChatScreenState extends State<ChatScreen> {
     //
     // }
     //print(loggedInUser!.email);
+    print('object');
+    print(loggedInUser!.email);
     await for (var snapshot in _firestore.collection('users').snapshots()) {
       for (var user in snapshot.docs) {
         if (user.data()['email'] == loggedInUser!.email) {
@@ -54,7 +56,7 @@ class _ChatScreenState extends State<ChatScreen> {
             nickname = user.data()['nickname'];
             email = user.data()['email'];
           });
-
+          print('object2');
           print(user.data()['name']);
         }
       }
@@ -74,6 +76,7 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     chatID_main = widget.chatID;
     print(widget.chatID);
+    //print('test');
     getCurrentUser();
   }
 

@@ -46,17 +46,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     EmailField(
                       onChanged: (value) =>
-                          BlocProvider.of<LoginProvider>(context).state.email =
-                              value,
+                          // BlocProvider.of<LoginProvider>(context).state.email =
+                          //     value,
+                          BlocProvider.of<LoginProvider>(context)
+                              .updateEmail(value!),
                     ),
                     SizedBox(
                       height: 8.0,
                     ),
                     PasswordField(
                       onChanged: (value) =>
+                          // BlocProvider.of<LoginProvider>(context)
+                          //     .state
+                          //     .password = value,
                           BlocProvider.of<LoginProvider>(context)
-                              .state
-                              .password = value,
+                              .updatePassowrd(value!),
                     ),
                     SizedBox(
                       height: 24.0,
@@ -64,10 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     RoundedButton(
                       text: 'Log in',
                       color: Colors.lightBlueAccent,
-                      onPress: () {
-                        if (BlocProvider.of<LoginProvider>(context)
-                            .login(state.email!, state.password!))
+                      onPress: () async {
+                        if (await BlocProvider.of<LoginProvider>(context)
+                            .login())
                           Navigator.pushNamed(context, MainScreen.id);
+                        else {
+                          // show notification
+                        }
                       },
                     ),
                   ],

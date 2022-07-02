@@ -12,11 +12,11 @@ class FirebaseManager {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
 
-  bool validateUser(String email, String password) {
+  Future<bool> validateUser(String email, String password) async {
     //emit(LoginState(showSpinner: true));
     try {
-      final user =
-          _auth.signInWithEmailAndPassword(email: email, password: password);
+      final user = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       if (user != null) {
         //emit(LoginState(showSpinner: false));
         return true;

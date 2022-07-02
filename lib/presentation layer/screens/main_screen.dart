@@ -1,5 +1,7 @@
+import 'package:flash_chat_flutter/bloc/data_provider/bottom_bar_provider.dart';
 import 'package:flash_chat_flutter/bloc/data_provider/main_screen_provider.dart';
 import 'package:flash_chat_flutter/bloc/model/MainScreenState.dart';
+import 'package:flash_chat_flutter/bloc/model/bottom_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:flash_chat_flutter/presentation%20layer/screens/create_chat.dart';
@@ -28,168 +30,162 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MainScreenProvider>(
-      create: (context) => MainScreenProvider(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => MainScreenProvider(),
+        ),
+        BlocProvider(
+          create: (context) => BottomBarProvider(),
+        ),
+      ],
+      //create: (context) => MainScreenProvider(),
       child: Scaffold(
         //backgroundColor: Color(0xFFF7F7F7),
         backgroundColor: Colors.white,
         body: BlocBuilder<MainScreenProvider, MainScreenState>(
             builder: (context, state) {
           return SafeArea(
-            child: ModalProgressHUD(
-              inAsyncCall: state.showSpinner!,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 9,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            height: 50,
-                            child: SearchBar(),
+              child: ModalProgressHUD(
+            inAsyncCall: state.showSpinner!,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 9,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          height: 50,
+                          child: SearchBar(),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          height: 50,
+                          child: GestureDetector(
+                            onTap: () {
+                              //Navigator.pushNamed(context, CreateChat.id);
+                              showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  builder: (context) => CreateChat());
+                            },
+                            child: Icon(FontAwesomeIcons.penToSquare,
+                                //color: Color(0xFFD4D4D4),
+                                color: Color(0xFF595959)),
                           ),
                         ),
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            height: 50,
-                            child: GestureDetector(
-                              onTap: () {
-                                //Navigator.pushNamed(context, CreateChat.id);
-                                showModalBottomSheet(
-                                    context: context,
-                                    isScrollControlled: true,
-                                    builder: (context) => CreateChat());
-                              },
-                              child: Icon(FontAwesomeIcons.penToSquare,
-                                  //color: Color(0xFFD4D4D4),
-                                  color: Color(0xFF595959)),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        BlocProvider.of<MainScreenProvider>(context)
+                            .changeToPrivateChat();
+                        //state.privateChat = true;
+                        // setState(() {
+                        //   privateChat = true;
+                        // });
+                      },
+                      child: Column(
+                        children: [
+                          Text(
+                            'Chats',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: state.privateChat!
+                                  ? activeChatTabColor
+                                  : inactiveChatTabColor,
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          BlocProvider.of<MainScreenProvider>(context)
-                              .changeToPrivateChat();
-                          //state.privateChat = true;
-                          // setState(() {
-                          //   privateChat = true;
-                          // });
-                        },
-                        child: Column(
-                          children: [
-                            Text(
-                              'Chats',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                                color: state.privateChat!
-                                    ? activeChatTabColor
-                                    : inactiveChatTabColor,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4.0),
-                              child: SizedBox(
-                                height: 1,
-                                width: 150,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    color: state.privateChat!
-                                        ? activeChatTabColor
-                                        : inactiveChatTabColor,
-                                  ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
+                            child: SizedBox(
+                              height: 1,
+                              width: 150,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: state.privateChat!
+                                      ? activeChatTabColor
+                                      : inactiveChatTabColor,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          BlocProvider.of<MainScreenProvider>(context)
-                              .changeToGroupChat();
-                          //print(state.privateChat);
-                          //state.privateChat = false;
-                          // setState(() {
-                          //   privateChat = false;
-                          // });
-                        },
-                        child: Column(
-                          children: [
-                            Text(
-                              'Groups',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                                color: state.privateChat!
-                                    ? inactiveChatTabColor
-                                    : activeChatTabColor,
-                              ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        BlocProvider.of<MainScreenProvider>(context)
+                            .changeToGroupChat();
+                        //print(state.privateChat);
+                        //state.privateChat = false;
+                        // setState(() {
+                        //   privateChat = false;
+                        // });
+                      },
+                      child: Column(
+                        children: [
+                          Text(
+                            'Groups',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: state.privateChat!
+                                  ? inactiveChatTabColor
+                                  : activeChatTabColor,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 3.0),
-                              child: SizedBox(
-                                height: 1,
-                                width: 150,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    color: state.privateChat!
-                                        ? inactiveChatTabColor
-                                        : activeChatTabColor,
-                                  ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 3.0),
+                            child: SizedBox(
+                              height: 1,
+                              width: 150,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: state.privateChat!
+                                      ? inactiveChatTabColor
+                                      : activeChatTabColor,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  state.privateChat! ? PrivateChatStream() : GroupChatStream(),
-                  Container(
-                    //width: 100,
-                    height: 55,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Color(0xFFD4D4D4),
-                        ),
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(0),
-                            bottomRight: Radius.circular(0),
-                            topRight: Radius.circular(40),
-                            topLeft: Radius.circular(40))),
-                    child: BottomBar(
-                        //nextPageID: FriendsScreen.id,
-                        ),
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                state.privateChat! ? PrivateChatStream() : GroupChatStream(),
+                BlocBuilder<BottomBarProvider, BottomBarState>(
+                    builder: (cxt, state) {
+                  return BottomBar(
+                      //nextPageID: FriendsScreen.id,
+                      );
+                }),
+              ],
             ),
-          );
+          ));
         }),
       ),
     );

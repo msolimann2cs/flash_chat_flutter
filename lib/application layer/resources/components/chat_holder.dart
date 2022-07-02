@@ -1,8 +1,10 @@
+import 'package:flash_chat_flutter/bloc/repository/firebase_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flash_chat_flutter/presentation layer/screens/chat_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+final FirebaseManager firebaseManager = FirebaseManager();
 final _firestore = FirebaseFirestore.instance;
 final scrollController = ScrollController();
 
@@ -143,11 +145,44 @@ class _ChatHolderNewState extends State<ChatHolderNew> {
                         Expanded(
                           flex: 0,
                           child: GestureDetector(
-                            onTap: () {
-                              _firestore
-                                  .collection('Chats')
-                                  .doc(widget.chatID)
-                                  .delete();
+                            onTap: () async {
+                              // var chatsRef = _firestore.collection('Chats').orderBy('id').snapshots();
+                              // var chats = chatsRef
+                              var chatData = _firestore.collection('Chats');
+                              var chatRef = await chatData.get();
+                              for (var snapshot in chatRef.docs) {
+                                List userList = snapshot.get('users');
+                                print(userList);
+                                var loggedInUser =
+                                    await firebaseManager.getCurrentUser();
+                                for (var user in userList) {
+                                  if (loggedInUser!.email == user.toString()) {
+                                    if (userList.length == 2) {
+                                      _firestore
+                                          .collection('Chats')
+                                          .doc(widget.chatID)
+                                          .delete();
+                                    } else {
+                                      userList.remove(loggedInUser!.email);
+                                      print(userList);
+                                      _firestore
+                                          .collection('Chats')
+                                          .doc(widget.chatID)
+                                          .update({'users': userList});
+                                    }
+                                  } else if (userList.isEmpty ||
+                                      userList.length == 1) {
+                                    _firestore
+                                        .collection('Chats')
+                                        .doc(widget.chatID)
+                                        .delete();
+                                  }
+                                }
+                              }
+                              // _firestore
+                              //     .collection('Chats')
+                              //     .doc(widget.chatID)
+                              //     .delete();
                             },
                             child: Icon(
                               FontAwesomeIcons.solidTrashCan,
