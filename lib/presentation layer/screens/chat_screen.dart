@@ -19,9 +19,10 @@ var loggedInUser;
 var chatID_main;
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen({this.chatID});
+  ChatScreen({this.chatID, this.chatName});
   static String id = 'chat_screen';
   final chatID;
+  final chatName;
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -183,6 +184,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                     builder: (context) => VideoCallPage(
                                       channelName: widget.chatID,
                                       role: _role,
+                                      chatName: widget.chatName,
                                     ),
                                   ),
                                 );

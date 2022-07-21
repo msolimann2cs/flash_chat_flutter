@@ -77,6 +77,7 @@ class _ChatHolderNewState extends State<ChatHolderNew> {
                   builder: (context) {
                     return ChatScreen(
                       chatID: widget.chatID,
+                      chatName: widget.chatName,
                     );
                   },
                 ),

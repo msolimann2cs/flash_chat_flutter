@@ -22,8 +22,9 @@ class VideoCallPage extends StatefulWidget {
   /// non-modifiable client role of the page
   final ClientRole? role;
 
+  final chatName;
   /// Creates a call page with given channel name.
-  const VideoCallPage({Key? key, this.channelName, this.role})
+  const VideoCallPage({Key? key, this.channelName, this.role, this.chatName})
       : super(key: key);
 
   @override
@@ -355,7 +356,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agora Flutter QuickStart'),
+        title: Text(widget.chatName),
       ),
       backgroundColor: Colors.black,
       body: Center(

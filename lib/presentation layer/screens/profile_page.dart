@@ -3,6 +3,7 @@ import 'package:flash_chat_flutter/application%20layer/resources/components/bott
 import 'package:flash_chat_flutter/presentation%20layer/screens/friends_screen.dart';
 import 'package:flash_chat_flutter/presentation%20layer/screens/login_screen.dart';
 import 'package:flash_chat_flutter/presentation%20layer/screens/main_screen.dart';
+import 'package:flash_chat_flutter/presentation%20layer/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flash_chat_flutter/bloc/repository/firebase_manager.dart';
@@ -173,7 +174,7 @@ class _ProfilePageState extends State<ProfilePage> {
               color: Colors.red,
               onPress: () {
                 Navigator.pushNamedAndRemoveUntil(
-                    context, LoginScreen.id, (route) => false);
+                    context, WelcomeScreen.id, (route) => false);
               },
             ),
             BottomBar(),

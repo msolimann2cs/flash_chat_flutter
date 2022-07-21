@@ -13,7 +13,17 @@ Future<void> main() async {
   // Ensure that Firebase is initialized
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize Firebase
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    // options: FirebaseOptions(
+    //     apiKey: "AIzaSyC_6IlPChOpmYzpUfd4DQVAD-MreaZcng4",
+    //     authDomain: "flash-chat-flutter-72301.firebaseapp.com",
+    //     projectId: "flash-chat-flutter-72301",
+    //     storageBucket: "flash-chat-flutter-72301.appspot.com",
+    //     messagingSenderId: "862805045389",
+    //     appId: "1:862805045389:web:5e68050a1da70ebb1072c4",
+    //     measurementId: "G-B6YVCC0QB3"),
+  );
+
   //
   runApp(FlashChat());
 }
