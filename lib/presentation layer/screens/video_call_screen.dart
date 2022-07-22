@@ -69,7 +69,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
     //Future getData() async {
     //print(widget.channelName!);
     http.Response response = await http.get(Uri.parse(
-        'http://10.0.2.2:3000/rtctoken?isPublisher=true&channel=${widget.channelName!}'));
+        'https://us-central1-flash-chat-flutter-72301.cloudfunctions.net/api/rtctoken?isPublisher=true&channel=${widget.channelName!}'));
 
     // if (response.statusCode == 200) {
     //   String responseData = response.body;

@@ -213,6 +213,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                   builder: (context) => VoiceCallPage(
                                     channelName: 'test',
                                     role: _role,
+                                    chatName: widget.chatName,
                                   ),
                                 ),
                               );

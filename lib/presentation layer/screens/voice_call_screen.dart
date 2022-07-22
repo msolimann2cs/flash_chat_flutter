@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 //import '../utils/settings.dart';
 
 import 'package:flash_chat_flutter/application%20layer/resources/constants.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class VoiceCallPage extends StatefulWidget {
   /// non-modifiable channel name of the page
@@ -60,13 +62,58 @@ class _VoiceCallPageState extends State<VoiceCallPage> {
       return;
     }
 
+    Future getChannelToken() async {
+      //var channel = IOWebSocketChannel.connect(Uri.parse('ws://localhost:1234'));
+      // IOWebSocketChannel? channel;
+      // try {
+      //   // Connect to our backend.
+      //   channel = IOWebSocketChannel.connect('http://localhost:3000/rtctoken');
+      // } catch (e) {
+      //   // If there is any error that might be because you need to use another connection.
+      //   print("Error on connecting to websocket: " + e.toString());
+      // }
+      //channel.
+      //final url;
+      //Future getData() async {
+      //print(widget.channelName!);
+      http.Response response = await http.get(Uri.parse(
+          'https://us-central1-flash-chat-flutter-72301.cloudfunctions.net/api/rtctoken?isPublisher=true&channel=${widget.channelName!}'));
+
+      // if (response.statusCode == 200) {
+      //   String responseData = response.body;
+      //   var decodedData = jsonDecode(responseData);
+      //
+      //   return decodedData;
+      // } else {
+      //   print(response.statusCode);
+      // }
+      String responseData = response.body;
+      var decodedData = jsonDecode(responseData);
+
+      return decodedData;
+    }
+
+    Future<dynamic> finalToken() async {
+      var channelData = await getChannelToken();
+      //var channelToken = channelData['token'];
+      return channelData;
+    }
+
     await _initAgoraRtcEngine();
     _addAgoraEventHandlers();
     //await _engine.enableWebSdkInteroperability(true);
     //VideoEncoderConfiguration configuration = VideoEncoderConfiguration();
     //configuration.dimensions = VideoDimensions(width: 1920, height: 1080);
     //await _engine.setVideoEncoderConfiguration(configuration);
-    await _engine.joinChannel(Token, widget.channelName!, null, 0);
+    dynamic channelData = await finalToken();
+    String channelToken = channelData['token'];
+    int channelUID = channelData['uid'];
+    print('??????????????????????????????????????????????????????????');
+    //"006be503467d4a24a64a19be028749340d0IACo5vTCcfuiVKzejre0+CXUVnWLXYkjpcoqx4dJJBj6y869vGRp+a/+IgBW4iQ4YOO5YgQAAQDwn7hiAgDwn7hiAwDwn7hiBADwn7hi"
+    //006be503467d4a24a64a19be028749340d0IACsSm+dI8//B6XQsrmqAkCNXGcu1gDNbnOOJ4/DAP57Bs69vGQ3ibBxIgBW4iQ44uO5YgQAAQByoLhiAgByoLhiAwByoLhiBAByoLhi
+    print(channelToken);
+    await _engine.joinChannel(
+        channelToken, widget.channelName!, null, channelUID); //token
   }
 
   /// Create agora sdk instance and initialize
