@@ -41,7 +41,7 @@ class _ProfilePageState extends State<ProfilePage> {
         if (user.data()['email'] == loggedInUser!.email) {
           setState(() {
             username = user.data()['username'];
-            name = user.data()['name'];
+            user.data()['name'] == null ? name ='null' : name = user.data()['name'];
             nickname = user.data()['nickname'];
             email = user.data()['email'];
           });
