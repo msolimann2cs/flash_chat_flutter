@@ -1,3 +1,4 @@
+import 'package:flash_chat_flutter/application%20layer/resources/components/friend_card.dart';
 import 'package:flash_chat_flutter/presentation%20layer/screens/main_screen.dart';
 import 'package:flash_chat_flutter/bloc/repository/firebase_manager.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,8 @@ class _ChatScreenState extends State<ChatScreen> {
   var name;
   var nickname;
   var email;
+  var friendName;
+  var friend;
   String? messageText;
 
   ClientRole _role = ClientRole.Broadcaster;
@@ -48,17 +51,75 @@ class _ChatScreenState extends State<ChatScreen> {
     //print(loggedInUser!.email);
     print('object');
     print(loggedInUser!.email);
+
+    var mainChat = _firestore.collection('Chats').doc(chatID_main).snapshots();
+    await for (var snapshot in mainChat) {
+      //print('eee');
+      friend = snapshot.data()!['users'];
+      friend = friend[1];
+      print(friend);
+      break;
+    }
+    // await for (var snapshot in _firestore.collection('Chats').snapshots()) {
+    //   for (var chat in snapshot.docs) {
+    //     if (chat.data()['users'].length == 2 && chat.data()['users'][1] == ) {}
+    //   }
+    // }
+    //print('xsxs');
+    // await for (var snapshot in _firestore.collection('users').snapshots()) {
+    //   for (var user in snapshot.docs) {
+    //     print('annoying hi');
+    //     String test = user.data()['email'];
+    //     String test2 = '';
+    //     try {
+    //       test2 = test.substring(0, friend.toString().indexOf('@'));
+    //       print(test);
+    //       print(test2);
+    //     } catch (e) {
+    //       print(e);
+    //     }
+    //     //print(test2);
+    //     // print(user
+    //     //     .data()['email']
+    //     //     .toString()
+    //     //     .substring(0, user.data()['email'].toString().indexOf(friend, 0)));
+    //   }
+    // }
+    //var test2 = otherUser.doc(documentPath)
     await for (var snapshot in _firestore.collection('users').snapshots()) {
       for (var user in snapshot.docs) {
+        //print('hi2');
         if (user.data()['email'] == loggedInUser!.email) {
           setState(() {
             username = user.data()['username'];
-            user.data()['name'] == null ? name ='null' : name = user.data()['name'];
+            user.data()['name'] == null
+                ? name = 'null'
+                : name = user.data()['name'];
             nickname = user.data()['nickname'];
             email = user.data()['email'];
           });
-          print('object2');
-          print(user.data()['name']);
+//          print('hi');
+
+          //print('object2');
+          //print(user.data()['name']);
+        }
+        if (user
+                .data()['email']
+                .toString()
+                .substring(0, user.data()['email'].toString().indexOf('@')) ==
+            friend.toString().substring(0, friend.toString().indexOf('@'))) {
+          // print(
+          //     friend.toString().substring(0, friend.toString().indexOf('@')));
+
+          // print(friend.toString().substring(0, friend.toString().indexOf('@')));
+          //print(user.data()['email']);
+          setState(() {
+            user.data()['name'] == null
+                ? friendName = 'null'
+                : friendName = user.data()['name'];
+            //print(friendName);
+            //friendName = user.data()['name'];
+          });
         }
       }
     }
@@ -84,21 +145,6 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF7F7F7),
-      // appBar: AppBar(
-      //   leading: null,
-      //   actions: <Widget>[
-      //     IconButton(
-      //         icon: Icon(Icons.close),
-      //         onPressed: () {
-      //           //Implement logout functionality
-      //           _auth.signOut();
-      //           Navigator.pop(context);
-      //           //messageStream();
-      //         }),
-      //   ],
-      //   title: Text('Chat'),
-      //   backgroundColor: Colors.lightBlueAccent,
-      // ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,7 +195,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(10, 34, 0, 0),
                               child: Text(
-                                name,
+                                friendName,
                                 style: TextStyle(color: Colors.black87),
                               ),
                             ),
